@@ -3,7 +3,6 @@ from posts.models import Post, Comment
 from django.shortcuts import get_object_or_404
 from api.serializers import PostSerializer, CommentSerializer, FollowSerializer
 from .permissions import IsAuthorOrReadOnly
-from rest_framework.filters import SearchFilter
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -30,12 +29,9 @@ class FollowViewSet(mixins.ListModelMixin,
                     mixins.CreateModelMixin,
                     viewsets.GenericViewSet):
     serializer_class = FollowSerializer
-    filter_backends = (SearchFilter,)
-    search_fields = ('=user__username', '=following__username')
 
     def get_queryset(self):
         return self.request.user.follower.all()
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-        print(serializer.errors)

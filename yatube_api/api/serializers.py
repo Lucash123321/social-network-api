@@ -26,3 +26,9 @@ class FollowSerializer(serializers.ModelSerializer):
         model = Follow
         fields = ('user', 'author')
         read_only_fields = ('user', )
+
+    def validate(self, attrs):
+        already_follow = Follow.objects.filter(author=attrs['author'])
+        if self.context['request'].user == attrs['author'] or already_follow:
+            raise serializers.ValidationError
+        return attrs
