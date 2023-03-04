@@ -25,10 +25,13 @@ class CommentViewSet(viewsets.ModelViewSet):
         serializer.save(author=self.request.user, post=post)
 
 
-class FollowViewSet(mixins.ListModelMixin,
+class FollowViewSet(mixins.RetrieveModelMixin,
+                    mixins.DestroyModelMixin,
+                    mixins.ListModelMixin,
                     mixins.CreateModelMixin,
                     viewsets.GenericViewSet):
     serializer_class = FollowSerializer
+
 
     def get_queryset(self):
         return self.request.user.follower.all()
