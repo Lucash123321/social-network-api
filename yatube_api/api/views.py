@@ -1,5 +1,5 @@
 from rest_framework import viewsets, mixins
-from posts.models import Post, Comment
+from .models import Post, Comment
 from django.shortcuts import get_object_or_404
 from api.serializers import PostSerializer, CommentSerializer, FollowSerializer
 from .permissions import IsAuthorOrReadOnly
