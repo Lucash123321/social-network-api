@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Post, Comment, Follow
+from .models import Post, Comment, Follow, Group
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -32,3 +32,9 @@ class FollowSerializer(serializers.ModelSerializer):
         if self.context['request'].user == attrs['author'] or already_follow:
             raise serializers.ValidationError
         return attrs
+
+
+class GroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = ('title', 'slug', 'description')
