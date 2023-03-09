@@ -47,6 +47,5 @@ class GroupViewSet(mixins.RetrieveModelMixin,
     serializer_class = GroupSerializer
 
     def get_queryset(self):
-        print(Group.objects.all())
         return Group.objects.all()
 
