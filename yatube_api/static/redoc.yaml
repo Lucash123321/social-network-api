@@ -367,7 +367,7 @@ paths:
       parameters:
       - name: user
         in: query
-        description: Пользователь для фильтрации по подписчикам
+        description: Пользователь для подписки
         schema:
           type: string
       requestBody:
