@@ -10,7 +10,7 @@ pip install -r requirements.txt
 ```
 python3 manage.py runserver
 ```
--You can read documentation of API on this page:
+- You can read documentation of API on this page:
 ```
 http://127.0.0.1:8000/redoc/
 ```
