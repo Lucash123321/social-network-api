@@ -1,7 +1,7 @@
 openapi: 3.0.2
 info:
   title: 'Yatube API'
-  version: ''
+  version: 1.0.0
   description: API начинается с /api/v1/
 
 servers:
@@ -340,7 +340,7 @@ paths:
                 - refresh
           description: ''
 
-  /follow/:
+  /following/:
     get:
       tags:
         - FOLLOW
@@ -388,8 +388,28 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Follow'
+  /following/{author_id}:
+    delete:
+      tags:
+        - FOLLOW
+      description: 'Удалить подписку по id автора'
+      parameters:
+      - name: author_id
+        in: path
+        required: true
+        description: ID автора
+        schema:
+          type: string
+      responses:
+        204:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Follow'
 
-  /group/:
+
+  /groups/:
     get:
       tags:
         - GROUP
@@ -417,6 +437,43 @@ paths:
       responses:
         200:
           description: 'Новая группа'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+  /groups/{slug}/:
+    get:
+      tags:
+        - GROUP
+      description: 'Получить группу по slug'
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        description: slug группы
+        schema:
+          type: number
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+          description: ''
+    delete:
+      tags:
+        - GROUP
+      description: 'Удалить группу по slug'
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          description: slug группы
+          schema:
+            type: number
+      responses:
+        204:
+          description: ''
           content:
             application/json:
               schema:
@@ -496,13 +553,18 @@ components:
         user:
           type: string
           title: username кто подписался
-        following:
+        author:
           type: string
           title: username на кого подписаться
     Group:
       title: Группы
       type: object
       properties:
+        slug:
+          type: string
+          title: slug группы
         title:
           type: string
           title: название группы
+        description:
+          title: описание группы

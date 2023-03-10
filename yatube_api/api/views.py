@@ -1,5 +1,5 @@
 from rest_framework import viewsets, mixins
-from .models import Post, Comment, Group
+from .models import Post, Comment, Group, Follow
 from django.shortcuts import get_object_or_404
 from api.serializers import PostSerializer, CommentSerializer, FollowSerializer, GroupSerializer
 from .permissions import IsAuthorOrReadOnly
@@ -31,6 +31,10 @@ class FollowViewSet(mixins.RetrieveModelMixin,
                     mixins.CreateModelMixin,
                     viewsets.GenericViewSet):
     serializer_class = FollowSerializer
+
+    def get_object(self):
+        author = self.kwargs.get('pk')
+        return self.request.user.follower.get(author=author)
 
     def get_queryset(self):
         return self.request.user.follower.all()
