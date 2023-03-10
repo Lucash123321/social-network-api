@@ -9,4 +9,8 @@ pip install -r requirements.txt
 - In folder with file manage.py execute a command:
 ```
 python3 manage.py runserver
+-You can read documentation of API on this page:
+```
+```
+http://127.0.0.1:8000/redoc/
 ```
